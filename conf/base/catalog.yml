@@ -5,16 +5,22 @@ raw_renovabio_plants_validos:
   type: pandas.ExcelDataSet
   filepath: data/01_raw/renovabio_biofuel_plants.xlsx
   load_args:
+    header: 1
+    skipfooter: 10
     sheet_name: Válidos
 
 raw_renovabio_plants_canc_susp:
   type: pandas.ExcelDataSet
   filepath: data/01_raw/renovabio_biofuel_plants.xlsx
   load_args:
+    header: 1
+    skipfooter: 4
     sheet_name: Cancelados ou Suspensos
 
 raw_renovabio_plants_anulados:
   type: pandas.ExcelDataSet
   filepath: data/01_raw/renovabio_biofuel_plants.xlsx
   load_args:
+    header: 1
+    skipfooter: 9
     sheet_name: Anulados
