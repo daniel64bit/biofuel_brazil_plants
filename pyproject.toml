@@ -1,6 +1,6 @@
 [tool.kedro]
-package_name = "usinas_etanol"
-project_name = "usinas_etanol"
+package_name = "ethanol_brazil_plants"
+project_name = "ethanol_brazil_plants"
 kedro_init_version = "0.18.12"
 
 [tool.isort]
@@ -9,9 +9,9 @@ profile = "black"
 [tool.pytest.ini_options]
 addopts = """
 --cov-report term-missing \
---cov src/usinas_etanol -ra"""
+--cov src/ethanol_brazil_plants -ra"""
 
-# Para rodar usar black --preview <nome do arquivo>
+# Use "black --preview <nome do arquivo>" to run black in preview mode
 [tool.black]
 line-length = 79
 target-version = ["py37"]

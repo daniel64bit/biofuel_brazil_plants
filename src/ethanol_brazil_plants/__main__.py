@@ -1,5 +1,5 @@
-"""usinas_etanol file for ensuring the package is executable
-as `usinas-etanol` and `python -m usinas_etanol`
+"""ethanol_brazil_plants file for ensuring the package is executable
+as `usinas-etanol` and `python -m ethanol_brazil_plants`
 """
 import importlib
 from pathlib import Path
