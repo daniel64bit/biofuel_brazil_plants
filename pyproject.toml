@@ -1,0 +1,24 @@
+[tool.kedro]
+package_name = "usinas_etanol"
+project_name = "usinas_etanol"
+kedro_init_version = "0.18.12"
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = """
+--cov-report term-missing \
+--cov src/usinas_etanol -ra"""
+
+# Para rodar usar black --preview <nome do arquivo>
+[tool.black]
+line-length = 79
+target-version = ["py37"]
+include = '\.pyi?$'
+experimental-string-processing = true
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
