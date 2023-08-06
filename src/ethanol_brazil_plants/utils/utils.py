@@ -44,6 +44,7 @@ def normalize_object_columns(
             .str.strip()
             .str.upper()
         )
+
     return df
 
 
@@ -61,6 +62,9 @@ def normalize_int_columns(
             .str.replace('[.,/-]', '', regex=True)
             .astype(np.int64)
         )
+        if col == "CNPJ":
+            df[col] = df[col].astype(str).str.zfill(14)
+
     return df
 
 
