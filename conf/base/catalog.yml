@@ -25,3 +25,6 @@ raw_renovabio_plants_anulados:
     skipfooter: 9
     sheet_name: Anulados
 
+refined_renovabio_plants:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/renovabio_biofuel_plants.parquet
