@@ -31,7 +31,7 @@ def selenium_setup(
 
 def generate_address_lists(
     rf_renovabio_plants: pd.DataFrame,
-) -> tuple(list, list):
+) -> tuple:
     """
     Generate a list of addresses to be geocoded.
     """
