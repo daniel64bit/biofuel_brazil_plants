@@ -28,3 +28,7 @@ raw_renovabio_plants_anulados:
 refined_renovabio_plants:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/renovabio_biofuel_plants.parquet
+
+refined_renovabio_plants_geocoded:
+  type: pandas.ParquetDataSet
+  filepath: data/03_primary/renovabio_biofuel_plants_geocoded.parquet

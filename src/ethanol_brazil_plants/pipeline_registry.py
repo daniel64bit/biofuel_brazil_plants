@@ -5,6 +5,7 @@ from kedro.pipeline import Pipeline
 from .pipelines.get_renovabio_database.pipeline import get_renovabio_database
 from .pipelines.refined_renovabio_database.pipeline import \
     generate_refined_renovabio_plants
+from .pipelines.geocode_renovabio_plants.pipeline import geocode_renovabio_plants
 
 
 def register_pipelines() -> dict[str, Pipeline]:
@@ -13,5 +14,6 @@ def register_pipelines() -> dict[str, Pipeline]:
     return {
         "__default__":
         get_renovabio_database() +
-        generate_refined_renovabio_plants()
+        generate_refined_renovabio_plants() +
+        geocode_renovabio_plants()
     }
