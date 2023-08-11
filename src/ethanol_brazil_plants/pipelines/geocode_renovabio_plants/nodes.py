@@ -149,5 +149,5 @@ rf_renovabio_plants_geocoded = node(
         'geckodriver_path': 'params:geckodriver_path',
         'log_path': 'params:log_path',
     },
-    outputs='rf_renovabio_plants_geocoded',
+    outputs='refined_renovabio_plants_geocoded',
 )
