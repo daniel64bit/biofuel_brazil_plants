@@ -15,5 +15,8 @@ def register_pipelines() -> dict[str, Pipeline]:
         "__default__":
         get_renovabio_database() +
         generate_refined_renovabio_plants() +
-        geocode_renovabio_plants()
+        geocode_renovabio_plants(),
+        'get_renovabio_database': get_renovabio_database(),
+        'generate_refined_renovabio_plants': generate_refined_renovabio_plants(),
+        'geocode_renovabio_plants': geocode_renovabio_plants()
     }
