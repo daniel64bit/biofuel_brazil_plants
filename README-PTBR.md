@@ -25,7 +25,7 @@ As bibliotecas necessárias para a execução do pipeline estão listadas no arq
 pip install -r src/requirements.txt
 ```
 
-Além disso, é necessário ter a última versão do [geckodriver](https://github.com/mozilla/geckodriver/releases/) em seu computador, em um diretório conhecido e alcançável pelo seu terminal. 
+Além disso, é necessário ter a última versão do [geckodriver](https://github.com/mozilla/geckodriver/releases/) em um diretório conhecido. 
 
 ## Como executar o pipeline
 
@@ -33,6 +33,11 @@ Para executar o pipeline, utilize o comando:
 
 ```
 kedro run
+```
+
+Para executar uma pipeline específica, utilize o comando:
+```
+kedro run --pipeline <nome-da-pipeline>
 ```
 
 ## Contato
