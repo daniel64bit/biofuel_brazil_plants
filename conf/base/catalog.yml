@@ -8,6 +8,7 @@ raw_renovabio_plants_validos:
     header: 1
     skipfooter: 10
     sheet_name: Válidos
+    engine: openpyxl
 
 raw_renovabio_plants_canc_susp:
   type: pandas.ExcelDataSet
@@ -16,6 +17,7 @@ raw_renovabio_plants_canc_susp:
     header: 1
     skipfooter: 4
     sheet_name: Cancelados ou Suspensos
+    engine: openpyxl
 
 raw_renovabio_plants_anulados:
   type: pandas.ExcelDataSet
@@ -24,6 +26,7 @@ raw_renovabio_plants_anulados:
     header: 1
     skipfooter: 9
     sheet_name: Anulados
+    engine: openpyxl
 
 refined_renovabio_plants:
   type: pandas.ParquetDataSet
@@ -32,3 +35,7 @@ refined_renovabio_plants:
 refined_renovabio_plants_geocoded:
   type: pandas.ParquetDataSet
   filepath: data/03_primary/renovabio_biofuel_plants_geocoded.parquet
+
+refined_renovabio_plants_geocoded_excel:
+  type: pandas.ExcelDataSet
+  filepath: data/03_primary/renovabio_biofuel_plants_geocoded.xlsx
