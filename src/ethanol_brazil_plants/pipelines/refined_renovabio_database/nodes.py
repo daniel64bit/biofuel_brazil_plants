@@ -166,7 +166,7 @@ def split_address_column(
     normalized_df["p1_DS_END"] = normalized_df[
         refined_address_column
     ].str.extract(
-        r"(^RO[\w\s]+|[\s\W][A-Z]{2}(?<!KM|LT|CP)[\s\W]\d{1,3}\s|^EST[\w\s]+|ESTRADA[\w\s]+)" # noqa
+        r"(^RO[\w\s]+|[\s\W][A-Z]{2}(?<!KM|LT|CP)[\s\W]\d{1,3}\s|^EST[\w\s]+|ESTRADA[\w\s]+)"  # noqa
     )
 
     normalized_df["p1_NO_END"] = normalized_df[

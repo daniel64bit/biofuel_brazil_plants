@@ -1,8 +1,6 @@
 from setuptools import find_packages, setup
 
-entry_point = (
-    "usinas-etanol = ethanol_brazil_plants.__main__:main"
-)
+entry_point = "usinas-etanol = ethanol_brazil_plants.__main__:main"
 
 
 # get the dependencies and installs

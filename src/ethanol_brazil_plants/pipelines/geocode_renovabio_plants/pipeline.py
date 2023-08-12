@@ -13,16 +13,16 @@ def geocode_renovabio_plants_pipe(**kwargs) -> Pipeline:
             node(
                 func=geocode_renovabio_plants,
                 inputs={
-                    'rf_renovabio_plants': 'refined_renovabio_plants',
-                    'user_agent': 'params:user_agent',
-                    'geckodriver_path': 'params:geckodriver_path',
-                    'log_path': 'params:log_path',
-                    'first_iter_sleep_time': 'params:first_iter_sleep_time',
-                    'sleep_time': 'params:bing_sleep_time',
-                    'gis': 'params:bing_gis',
+                    "rf_renovabio_plants": "refined_renovabio_plants",
+                    "user_agent": "params:user_agent",
+                    "geckodriver_path": "params:geckodriver_path",
+                    "log_path": "params:log_path",
+                    "first_iter_sleep_time": "params:first_iter_sleep_time",
+                    "bing_sleep_time": "params:bing_sleep_time",
+                    "google_sleep_time": "params:google_sleep_time",
                 },
-                outputs='refined_renovabio_plants_geocoded',
-                name='bing_geocode_renovabio_plants',
+                outputs="refined_renovabio_plants_geocoded",
+                name="geocode_renovabio_plants",
             ),
         ]
     )

@@ -23,7 +23,7 @@ def selenium_setup(
 
     mozilla_service = Service(geckodriver_path, log_output=log_path)
     mozilla_options = Options()
-    mozilla_options.set_preference('general.useragent.override', user_agent)
+    mozilla_options.set_preference("general.useragent.override", user_agent)
     return mozilla_service, mozilla_options
 
 
@@ -34,25 +34,25 @@ def generate_address_lists(
     Generate a list of addresses to be geocoded.
     """
 
-    rf_renovabio_plants = rf_renovabio_plants.fillna('')
+    rf_renovabio_plants = rf_renovabio_plants.fillna("")
 
     address_list_v1 = (
-        rf_renovabio_plants['DS_END'].str.replace('FAZENDA', 'USINA')
-        .str.cat([
-            rf_renovabio_plants['NO_END'],
-            rf_renovabio_plants['CIDADE'],
-            rf_renovabio_plants['UF'],
-            rf_renovabio_plants['CEP']],
-            sep=' '
+        rf_renovabio_plants["DS_END"]
+        .str.replace("FAZENDA", "USINA")
+        .str.cat(
+            [
+                rf_renovabio_plants["NO_END"],
+                rf_renovabio_plants["CIDADE"],
+                rf_renovabio_plants["UF"],
+                rf_renovabio_plants["CEP"],
+            ],
+            sep=" ",
         )
     ).tolist()
 
     address_list_v2 = (
-        rf_renovabio_plants['CIDADE']
-        .str.cat([
-            rf_renovabio_plants['UF'],
-            rf_renovabio_plants['CEP']],
-            sep=' '
+        rf_renovabio_plants["CIDADE"].str.cat(
+            [rf_renovabio_plants["UF"], rf_renovabio_plants["CEP"]], sep=" "
         )
     ).tolist()
 
@@ -63,7 +63,7 @@ def get_latlong_from_url(url: str) -> tuple:
     """
     Returns latitude and longitude from a Bing Maps URL
     """
-    latlong = re.findall(r'-?\d{1,2}\.\d{3,}', url)
+    latlong = re.findall(r"-?\d{1,2}\.\d{3,}", url)
     latitude = float(latlong[0])
     longitude = float(latlong[1])
     return latitude, longitude
@@ -90,17 +90,21 @@ def selenium_geocode(
         gis: GIS (Maps) to be used. Choose between 'bing' or 'google'
     """
     # Launch browser
-    browser = webdriver.Firefox(service=mozilla_service, options=mozilla_options)
+    browser = webdriver.Firefox(
+        service=mozilla_service, options=mozilla_options
+    )
 
     # Define GIS URL
-    if gis == 'bing':
-        gis_url = 'https://www.bing.com/maps?q={}'
-        not_found_text = 'Não há resultados para:'  # PT-BR
-    elif gis == 'google':
-        gis_url = 'https://www.google.com.br/maps/search/{}'
-        not_found_text = 'O Google Maps não encontrou'  # PT-BR
+    if gis == "bing":
+        gis_url = "https://www.bing.com/maps?q={}"
+        not_found_text = "Não há resultados para:"  # PT-BR
+    elif gis == "google":
+        gis_url = "https://www.google.com.br/maps/search/{}"
+        not_found_text = "O Google Maps não encontrou"  # PT-BR
     else:
-        raise ValueError('Invalid GIS. Please choose between "bing" or "google".')
+        raise ValueError(
+            'Invalid GIS. Please choose between "bing" or "google".'
+        )
 
     # Geocoding addresses
     latitude = []
@@ -133,10 +137,7 @@ def selenium_geocode(
     browser.quit()
 
     df_latlong = pd.DataFrame(
-        {
-            f'LATITUDE_{gis}': latitude,
-            f'LONGITUDE_{gis}': longitude
-        }
+        {f"LATITUDE_{gis}": latitude, f"LONGITUDE_{gis}": longitude}
     )
     return df_latlong
 
@@ -156,24 +157,34 @@ def geocode_renovabio_plants(
     mozilla_service, mozilla_options = selenium_setup(
         user_agent, geckodriver_path, log_path
     )
-    address_list_v1, address_list_v2 = generate_address_lists(rf_renovabio_plants)
+    address_list_v1, address_list_v2 = generate_address_lists(
+        rf_renovabio_plants
+    )
 
     df_latlong_bing = selenium_geocode(
-        mozilla_service, mozilla_options,
-        address_list_v1, address_list_v2,
-        first_iter_sleep_time, bing_sleep_time,
-        gis='bing'
+        mozilla_service,
+        mozilla_options,
+        address_list_v1,
+        address_list_v2,
+        first_iter_sleep_time,
+        bing_sleep_time,
+        gis="bing",
     )
 
     df_latlong_google = selenium_geocode(
-        mozilla_service, mozilla_options,
-        address_list_v1, address_list_v2,
-        first_iter_sleep_time, google_sleep_time,
-        gis='google'
+        mozilla_service,
+        mozilla_options,
+        address_list_v1,
+        address_list_v2,
+        first_iter_sleep_time,
+        google_sleep_time,
+        gis="google",
     )
 
-    rf_renovabio_plants_geocoded = pd.concat([
-        rf_renovabio_plants, df_latlong_bing, df_latlong_google
-    ], axis=1, ignore_index=False)
+    rf_renovabio_plants_geocoded = pd.concat(
+        [rf_renovabio_plants, df_latlong_bing, df_latlong_google],
+        axis=1,
+        ignore_index=False,
+    )
 
     return rf_renovabio_plants_geocoded

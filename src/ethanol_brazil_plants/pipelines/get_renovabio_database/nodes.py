@@ -14,7 +14,7 @@ def download_file(url: str, save_path: str) -> None:
     try:
         response = requests.get(url)
 
-        with open(save_path, 'wb') as file:
+        with open(save_path, "wb") as file:
             file.write(response.content)
 
     except requests.exceptions.RequestException as e:
@@ -28,10 +28,10 @@ def extract_renovabio_database_link(renovabio_url: str) -> str:
 
     try:
         response = requests.get(renovabio_url)
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, "html.parser")
 
-        found_link = soup.find_all('a', attrs={'class': 'internal-link'})
-        found_link = found_link[0]['href']
+        found_link = soup.find_all("a", attrs={"class": "internal-link"})
+        found_link = found_link[0]["href"]
         return found_link
 
     except requests.exceptions.RequestException as e:

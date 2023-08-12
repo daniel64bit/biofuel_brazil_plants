@@ -14,7 +14,8 @@ def get_renovabio_database(**kwargs) -> Pipeline:
                 func=download_renovabio_database,
                 inputs={
                     "renovabio_url": "params:renovabio_url",
-                    "save_path": "params:raw_renovabio_plants_path"},
+                    "save_path": "params:raw_renovabio_plants_path",
+                },
                 outputs=None,
                 name="download_renovabio_database",
             )
