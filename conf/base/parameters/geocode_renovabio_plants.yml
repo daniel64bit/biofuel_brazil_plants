@@ -11,6 +11,3 @@ log_path: 'logs/geckodriver.log'
 first_iter_sleep_time: 6
 bing_sleep_time: 3.1
 google_sleep_time: 4
-
-bing_gis: 'bing'
-google_gis: 'google'
