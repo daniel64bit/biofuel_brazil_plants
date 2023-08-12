@@ -132,7 +132,12 @@ def selenium_geocode(
 
     browser.quit()
 
-    df_latlong = pd.DataFrame({'LATITUDE': latitude, 'LONGITUDE': longitude})
+    df_latlong = pd.DataFrame(
+        {
+            f'LATITUDE_{gis}': latitude,
+            f'LONGITUDE_{gis}': longitude
+        }
+    )
     return df_latlong
 
 
@@ -142,8 +147,8 @@ def geocode_renovabio_plants(
     geckodriver_path: str,
     log_path: str,
     first_iter_sleep_time: float,
-    sleep_time: float,
-    gis: str,
+    bing_sleep_time: float,
+    google_sleep_time: float,
 ) -> pd.DataFrame:
     """
     Geocodes addresses using Selenium and Firefox
@@ -153,15 +158,22 @@ def geocode_renovabio_plants(
     )
     address_list_v1, address_list_v2 = generate_address_lists(rf_renovabio_plants)
 
-    df_latlong = selenium_geocode(
+    df_latlong_bing = selenium_geocode(
         mozilla_service, mozilla_options,
         address_list_v1, address_list_v2,
-        first_iter_sleep_time, sleep_time,
-        gis
+        first_iter_sleep_time, bing_sleep_time,
+        gis='bing'
+    )
+
+    df_latlong_google = selenium_geocode(
+        mozilla_service, mozilla_options,
+        address_list_v1, address_list_v2,
+        first_iter_sleep_time, google_sleep_time,
+        gis='google'
     )
 
     rf_renovabio_plants_geocoded = pd.concat([
-        rf_renovabio_plants, df_latlong
+        rf_renovabio_plants, df_latlong_bing, df_latlong_google
     ], axis=1, ignore_index=False)
 
     return rf_renovabio_plants_geocoded
