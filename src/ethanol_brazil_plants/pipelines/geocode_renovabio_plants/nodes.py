@@ -11,8 +11,6 @@ from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from random import random
 
-from kedro.pipeline import node
-
 
 def selenium_setup(
     user_agent: str,
@@ -76,13 +74,23 @@ def selenium_geocode(
     mozilla_options,
     address_list_v1: list,
     address_list_v2: list,
+    first_iter_sleep_time: float,
+    sleep_time: float,
+    gis: str,
 ) -> pd.DataFrame:
     """
-    Geocodes addresses using Selenium and Firefox
+    Geocode addresses using Selenium and Bing or Google Maps
     """
     # Launch browser
     browser = webdriver.Firefox(service=mozilla_service, options=mozilla_options)
 
+    # Define GIS
+    if gis == 'bing':
+        gis_url = 'https://www.bing.com/maps?q={}'
+    elif gis == 'google':
+        gis_url = 'https://www.google.com/maps?q={}'
+    else:
+        raise ValueError('Invalid GIS. Please choose between "bing" or "google".')
     # Geocoding addresses
     latitude = []
     longitude = []
@@ -93,10 +101,10 @@ def selenium_geocode(
 
         # Longer sleep time for first iteration (browser opens)
         if first_iter is True:
-            time.sleep(6)
+            time.sleep(first_iter_sleep_time)
             first_iter = False
         else:
-            time.sleep(3.1 + random())
+            time.sleep(sleep_time + random())
 
         lat, long = get_latlong_from_url(browser.current_url)
 
@@ -104,7 +112,7 @@ def selenium_geocode(
         ckeck_results = re.findall('Não há resultados para:', browser.page_source)
         if len(ckeck_results) > 0:
             browser.get(f'https://www.bing.com/maps?q={address_list_v2[i]}')
-            time.sleep(3.1)
+            time.sleep(sleep_time)
 
             lat, long = get_latlong_from_url(browser.current_url)
 
@@ -122,8 +130,12 @@ def geocode_renovabio_plants(
     user_agent: str,
     geckodriver_path: str,
     log_path: str,
-):
-
+    first_iter_sleep_time: float,
+    sleep_time: float,
+) -> pd.DataFrame:
+    """
+    Geocodes addresses using Selenium and Firefox
+    """
     mozilla_service, mozilla_options = selenium_setup(
         user_agent, geckodriver_path, log_path
     )
@@ -132,6 +144,7 @@ def geocode_renovabio_plants(
     df_latlong = selenium_geocode(
         mozilla_service, mozilla_options,
         address_list_v1, address_list_v2,
+        first_iter_sleep_time, sleep_time
     )
 
     rf_renovabio_plants_geocoded = pd.concat([
@@ -139,15 +152,3 @@ def geocode_renovabio_plants(
     ], axis=1, ignore_index=False)
 
     return rf_renovabio_plants_geocoded
-
-
-rf_renovabio_plants_geocoded = node(
-    func=geocode_renovabio_plants,
-    inputs={
-        'rf_renovabio_plants': 'refined_renovabio_plants',
-        'user_agent': 'params:user_agent',
-        'geckodriver_path': 'params:geckodriver_path',
-        'log_path': 'params:log_path',
-    },
-    outputs='refined_renovabio_plants_geocoded',
-)

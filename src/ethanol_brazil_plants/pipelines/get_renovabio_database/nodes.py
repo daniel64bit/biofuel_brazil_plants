@@ -4,7 +4,6 @@ generated using Kedro 0.18.12
 """
 import requests
 from bs4 import BeautifulSoup
-from kedro.pipeline import node
 
 
 def download_file(url: str, save_path: str) -> None:
@@ -48,12 +47,3 @@ def download_renovabio_database(renovabio_url, save_path) -> None:
     database_url = extract_renovabio_database_link(renovabio_url)
     download_file(database_url, save_path)
     return None
-
-
-raw_renovabio_database = node(
-    func=download_renovabio_database,
-    inputs={
-        "renovabio_url": "params:renovabio_url",
-        "save_path": "params:raw_renovabio_plants_path"},
-    outputs=None
-)
