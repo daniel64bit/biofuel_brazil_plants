@@ -99,7 +99,7 @@ def selenium_geocode(
         gis_url = "https://www.bing.com/maps?q={}"
         not_found_text = "Não há resultados para:"  # PT-BR
     elif gis == "google":
-        gis_url = "https://www.google.com.br/maps/search/{}"
+        gis_url = "http://maps.google.com/?q={}"
         not_found_text = "O Google Maps não encontrou"  # PT-BR
     else:
         raise ValueError(
