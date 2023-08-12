@@ -19,7 +19,7 @@ O pipeline de dados foi construído utilizando [kedro 0.18.12](https://kedro.rea
 
 ## Requisitos
 
-As bibliotecas necessárias para a execução do pipeline estão listadas no arquivo `src/requirements.txt`. Para instalá-las, utilize o comando:
+As bibliotecas necessárias para a execução do projeto estão listadas no arquivo `src/requirements.txt`. Para instalá-las, utilize o comando:
 
 ```
 pip install -r src/requirements.txt
@@ -29,7 +29,7 @@ Além disso, é necessário ter a última versão do [geckodriver](https://githu
 
 ## Como executar o pipeline
 
-Para executar o pipeline, utilize o comando:
+Para executar o projeto, utilize o comando:
 
 ```
 kedro run
