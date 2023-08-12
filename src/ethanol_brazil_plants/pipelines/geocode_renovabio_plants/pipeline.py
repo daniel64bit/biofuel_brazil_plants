@@ -17,9 +17,12 @@ def geocode_renovabio_plants_pipe(**kwargs) -> Pipeline:
                     'user_agent': 'params:user_agent',
                     'geckodriver_path': 'params:geckodriver_path',
                     'log_path': 'params:log_path',
+                    'first_iter_sleep_time': 'params:first_iter_sleep_time',
+                    'sleep_time': 'params:bing_sleep_time',
+                    'gis': 'params:bing_gis',
                 },
                 outputs='refined_renovabio_plants_geocoded',
-                name='geocode_renovabio_plants',
-            )
+                name='bing_geocode_renovabio_plants',
+            ),
         ]
     )
