@@ -1,6 +1,6 @@
 # Brazilian biofuel plants
 
-Para acessar a versão em português, clique [aqui](README-PTBR.md).
+Para acessar a versão em português, [clique aqui](README-PTBR.md).
 
 ## Overview
 
