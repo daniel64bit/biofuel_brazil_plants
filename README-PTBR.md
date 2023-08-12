@@ -1,6 +1,6 @@
 # Usinas de biocombustível brasileiras
 
-![Python version](https://img.shields.io/badge/python-3.9%20%-blue.svg)
+![Python version](https://img.shields.io/badge/python-3.9%20%7C%20-blue.svg)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/daniel64bit/biofuel_brazil_plants/blob/main/LICENSE.md)
 
 ## Visão Geral
