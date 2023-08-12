@@ -286,4 +286,4 @@ def generate_refined_renovabio_database(
         normalized_database, dict_rename_cols, ordered_cols
     )
 
-    return normalized_database
+    return normalized_database.reset_index(drop=True)
