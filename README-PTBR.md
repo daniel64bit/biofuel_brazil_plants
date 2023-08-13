@@ -15,7 +15,8 @@ O pipeline de dados foi construído utilizando [kedro 0.18.12](https://kedro.rea
 
 1. Extração de dados brutos de certificados de produção eficiente de biocombustíveis emitidos pela ANP;
 2. Refinamento dos dados brutos, com padronização de tipos de dados e sua disposição;
-3. Geocodificação dos dados refinados utilizando [Selenium](https://selenium-python.readthedocs.io/index.html), [Bing Maps](https://www.bing.com/maps/) e [Google Maps](https://www.google.com.br/maps/);
+3. Geocodificação dos dados refinados utilizando [Selenium](https://selenium-python.readthedocs.io/index.html), [Bing Maps](https://www.bing.com/maps/)
+    - Geocodificação com [Google Maps](https://www.google.com.br/maps/) em desenvolvimento.
 
 ## Requisitos
 
