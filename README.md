@@ -1,44 +1,49 @@
 # Brazilian biofuel plants
 
+![Python version](https://img.shields.io/badge/python-3.9%20%7C%20-blue.svg)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/daniel64bit/biofuel_brazil_plants/blob/main/LICENSE.md)
+
 Para acessar a versão em português, [clique aqui](README-PTBR.md).
 
 ## Overview
 
-This project was generated using `kedro 0.18.12`.
+This project aims to extract, refine, and geocode data about Brazilian biofuel plants obtained through `Certificates of Efficient Biofuel Production` issued by accredited inspection firms under [RenovaBio](https://www.gov.br/mme/pt-br/assuntos/secretarias/petroleo-gas-natural-e-biocombustiveis/renovabio-1/renovabio-ingles), approved by the [National Agency for Petroleum, Natural Gas and Biofuels (ANP)](https://www.gov.br/anp/en).
 
-## Rules and guidelines
+The data generated after all processing can be used in geospatial analysis, with a certain margin of error in relation to the plants' locations.
 
-In order to get the best out of the template:
+The data pipeline was built using [kedro 0.18.12](https://kedro.readthedocs.io/en/stable/).
 
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a data engineering convention
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+## Key Features
 
-## How to install dependencies
+1. Extraction of raw data from efficient biofuel production certificates issued by ANP.
+2. Refinement of raw data, including data type standardization and arrangement.
+3. Geocoding of refined data using [Selenium](https://selenium-python.readthedocs.io/index.html) and [Bing Maps](https://www.bing.com/maps/).
+    - Geocoding with [Google Maps](https://www.google.com/maps/) in progress.
 
-Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
+## Requirements
 
-To install them, run:
+The required libraries for project execution are listed in the `src/requirements.txt` file. To install them, use the following command:
 
 ```
 pip install -r src/requirements.txt
 ```
 
-## How to run your Kedro pipeline
+Additionally, you need to have the latest version of [geckodriver](https://github.com/mozilla/geckodriver/releases/) in a known directory.
 
-You can run your Kedro project with:
+## How to Run the Pipeline
+
+To execute the project, use the command:
 
 ```
 kedro run
 ```
 
-## How to test your Kedro project
-
-Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+To execute a specific pipeline, use the command:
 
 ```
-kedro test
+kedro run --pipeline <pipeline-name>
 ```
 
-To configure the coverage threshold, go to the `.coveragerc` file.
+## Contact
+
+LinkedIn: [Daniel Rodrigues](https://www.linkedin.com/in/danielrod147/)
