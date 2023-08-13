@@ -38,8 +38,6 @@ def generate_address_lists(
 
     address_list_v1 = (
         rf_renovabio_plants["DS_END"]
-        .str.replace("FAZENDA", "USINA")
-        .str.replace('/', ' ')  # Removing reserved character
         .str.cat(
             [
                 rf_renovabio_plants["NO_END"],
@@ -49,12 +47,20 @@ def generate_address_lists(
             ],
             sep=" ",
         )
+        .str.replace("FAZENDA", "USINA")
+        .str.replace("/", " ")  # Removing reserved character
+        .str.replace("-", " ")  # Removing reserved character
+        .str.replace(r"\s+", " ", regex=True)  # Removing extra spaces
     ).tolist()
 
     address_list_v2 = (
-        rf_renovabio_plants["CIDADE"].str.cat(
+        rf_renovabio_plants["CIDADE"]
+        .str.cat(
             [rf_renovabio_plants["UF"], rf_renovabio_plants["CEP"]], sep=" "
         )
+        .str.replace("/", " ")  # Removing reserved character
+        .str.replace("-", " ")  # Removing reserved character
+        .str.replace(r"\s+", " ", regex=True)  # Removing extra spaces
     ).tolist()
 
     return address_list_v1, address_list_v2
