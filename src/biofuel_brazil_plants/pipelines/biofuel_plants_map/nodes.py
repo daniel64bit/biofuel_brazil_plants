@@ -5,6 +5,7 @@ generated using Kedro 0.18.12
 
 import folium
 import pandas as pd
+from biofuel_brazil_plants.utils import utils
 
 
 def create_marker(lat: float, lon: float, content: str) -> folium.Marker:
@@ -49,6 +50,7 @@ def generate_marker_content(
 
 def generate_biofuel_plants_map(
     rf_renovabio_plants_geocoded: pd.DataFrame,
+    biofuel_plants_map_path: str,
 ) -> folium.Map:
     """
     Generates a map with all the biofuel plants in Brazil.
@@ -77,4 +79,7 @@ def generate_biofuel_plants_map(
         )
 
         marker.add_to(biofuel_plants_map)
-    return biofuel_plants_map
+
+    biofuel_plants_map.save(biofuel_plants_map_path)
+
+    return None
