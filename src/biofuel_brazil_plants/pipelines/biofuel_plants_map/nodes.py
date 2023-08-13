@@ -5,7 +5,6 @@ generated using Kedro 0.18.12
 
 import folium
 import pandas as pd
-from biofuel_brazil_plants.utils import utils
 
 
 def create_marker(lat: float, lon: float, content: str) -> folium.Marker:
