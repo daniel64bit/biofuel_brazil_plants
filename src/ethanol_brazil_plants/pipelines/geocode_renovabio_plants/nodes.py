@@ -171,18 +171,19 @@ def geocode_renovabio_plants(
         gis="bing",
     )
 
-    df_latlong_google = selenium_geocode(
-        mozilla_service,
-        mozilla_options,
-        address_list_v1,
-        address_list_v2,
-        first_iter_sleep_time,
-        google_sleep_time,
-        gis="google",
-    )
+    # df_latlong_google = selenium_geocode(
+    #     mozilla_service,
+    #     mozilla_options,
+    #     address_list_v1,
+    #     address_list_v2,
+    #     first_iter_sleep_time,
+    #     google_sleep_time,
+    #     gis="google",
+    # )
 
     rf_renovabio_plants_geocoded = pd.concat(
-        [rf_renovabio_plants, df_latlong_bing, df_latlong_google],
+        # [rf_renovabio_plants, df_latlong_bing, df_latlong_google],
+        [rf_renovabio_plants, df_latlong_bing],
         axis=1,
         ignore_index=False,
     )
