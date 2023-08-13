@@ -1,6 +1,6 @@
 # Usinas de biocombustível brasileiras
 
-![Python version](https://img.shields.io/badge/python-3.9%20%-blue.svg)
+![Python version](https://img.shields.io/badge/python-3.9%20%7C%20-blue.svg)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/daniel64bit/biofuel_brazil_plants/blob/main/LICENSE.md)
 
 ## Visão Geral
@@ -20,20 +20,25 @@ O pipeline de dados foi construído utilizando [kedro 0.18.12](https://kedro.rea
 
 ## Requisitos
 
-As bibliotecas necessárias para a execução do pipeline estão listadas no arquivo `src/requirements.txt`. Para instalá-las, utilize o comando:
+As bibliotecas necessárias para a execução do projeto estão listadas no arquivo `src/requirements.txt`. Para instalá-las, utilize o comando:
 
 ```
 pip install -r src/requirements.txt
 ```
 
-Além disso, é necessário ter a última versão do [geckodriver](https://github.com/mozilla/geckodriver/releases/) em seu computador, em um diretório conhecido e alcançável pelo seu terminal. 
+Além disso, é necessário ter a última versão do [geckodriver](https://github.com/mozilla/geckodriver/releases/) em um diretório conhecido. 
 
 ## Como executar o pipeline
 
-Para executar o pipeline, utilize o comando:
+Para executar o projeto, utilize o comando:
 
 ```
 kedro run
+```
+
+Para executar uma pipeline específica, utilize o comando:
+```
+kedro run --pipeline <nome-da-pipeline>
 ```
 
 ## Contato
