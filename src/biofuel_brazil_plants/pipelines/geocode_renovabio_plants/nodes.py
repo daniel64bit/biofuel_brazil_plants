@@ -39,6 +39,7 @@ def generate_address_lists(
     address_list_v1 = (
         rf_renovabio_plants["DS_END"]
         .str.replace("FAZENDA", "USINA")
+        .str.replace('/', ' ')  # Removing reserved character
         .str.cat(
             [
                 rf_renovabio_plants["NO_END"],
@@ -99,7 +100,7 @@ def selenium_geocode(
         gis_url = "https://www.bing.com/maps?q={}"
         not_found_text = "Não há resultados para:"  # PT-BR
     elif gis == "google":
-        gis_url = "http://maps.google.com/?q={}"
+        gis_url = "https://www.google.com/maps/search/?api=1&query={}"
         not_found_text = "O Google Maps não encontrou"  # PT-BR
     else:
         raise ValueError(
@@ -171,19 +172,19 @@ def geocode_renovabio_plants(
         gis="bing",
     )
 
-    # df_latlong_google = selenium_geocode(
-    #     mozilla_service,
-    #     mozilla_options,
-    #     address_list_v1,
-    #     address_list_v2,
-    #     first_iter_sleep_time,
-    #     google_sleep_time,
-    #     gis="google",
-    # )
+    df_latlong_google = selenium_geocode(
+        mozilla_service,
+        mozilla_options,
+        address_list_v1,
+        address_list_v2,
+        first_iter_sleep_time,
+        google_sleep_time,
+        gis="google",
+    )
 
     rf_renovabio_plants_geocoded = pd.concat(
-        # [rf_renovabio_plants, df_latlong_bing, df_latlong_google],
-        [rf_renovabio_plants, df_latlong_bing],
+        [rf_renovabio_plants, df_latlong_bing, df_latlong_google],
+        # [rf_renovabio_plants, df_latlong_bing],
         axis=1,
         ignore_index=False,
     )
