@@ -21,4 +21,6 @@ def register_pipelines() -> dict[str, Pipeline]:
         "get_renovabio_database": get_renovabio_database(),
         "generate_refined_renovabio_plants": generate_refined_renovabio_plants(),
         "geocode_renovabio_plants": geocode_renovabio_plants_pipe(),
+        "get_and_refine_renovabio_database": get_renovabio_database()
+        + generate_refined_renovabio_plants(),
     }
