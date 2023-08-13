@@ -5,7 +5,7 @@ generated using Kedro 0.18.12
 
 import pandas as pd
 import numpy as np
-from ethanol_brazil_plants.utils import utils
+from biofuel_brazil_plants.utils import utils
 
 
 def normalize_renovabio_database(

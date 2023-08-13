@@ -1,8 +1,8 @@
-.. ethanol_brazil_plants documentation master file, created by sphinx-quickstart.
+.. biofuel_brazil_plants documentation master file, created by sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to project ethanol_brazil_plants's API docs!
+Welcome to project biofuel_brazil_plants's API docs!
 =============================================
 
 .. toctree::

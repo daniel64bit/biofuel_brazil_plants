@@ -1,6 +1,6 @@
 [tool.kedro]
-package_name = "ethanol_brazil_plants"
-project_name = "ethanol_brazil_plants"
+package_name = "biofuel_brazil_plants"
+project_name = "biofuel_brazil_plants"
 kedro_init_version = "0.18.12"
 
 [tool.isort]
@@ -9,7 +9,7 @@ profile = "black"
 [tool.pytest.ini_options]
 addopts = """
 --cov-report term-missing \
---cov src/ethanol_brazil_plants -ra"""
+--cov src/biofuel_brazil_plants -ra"""
 
 # Use "black --preview <nome do arquivo>" to run black in preview mode
 [tool.black]
