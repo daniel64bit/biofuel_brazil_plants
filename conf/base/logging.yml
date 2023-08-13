@@ -34,7 +34,7 @@ loggers:
   kedro:
     level: INFO
 
-  ethanol_brazil_plants:
+  biofuel_brazil_plants:
     level: INFO
 
 root:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# ethanol_brazil_plants documentation build
+# biofuel_brazil_plants documentation build
 # configuration file, created by sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its
@@ -21,11 +21,11 @@ import re
 
 from kedro.framework.cli.utils import find_stylesheets
 
-from ethanol_brazil_plants import __version__ as release
+from biofuel_brazil_plants import __version__ as release
 
 # -- Project information -----------------------------------------------------
 
-project = "ethanol_brazil_plants"
+project = "biofuel_brazil_plants"
 author = "Kedro"
 
 # The short X.Y version.
@@ -119,7 +119,7 @@ html_show_sourcelink = False
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "ethanol_brazil_plantsdoc"
+htmlhelp_basename = "biofuel_brazil_plantsdoc"
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -147,8 +147,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "ethanol_brazil_plants.tex",
-        "ethanol_brazil_plants Documentation",
+        "biofuel_brazil_plants.tex",
+        "biofuel_brazil_plants Documentation",
         "Kedro",
         "manual",
     )
@@ -161,8 +161,8 @@ latex_documents = [
 man_pages = [
     (
         master_doc,
-        "ethanol_brazil_plants",
-        "ethanol_brazil_plants Documentation",
+        "biofuel_brazil_plants",
+        "biofuel_brazil_plants Documentation",
         [author],
         1,
     )
@@ -176,11 +176,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "ethanol_brazil_plants",
-        "ethanol_brazil_plants Documentation",
+        "biofuel_brazil_plants",
+        "biofuel_brazil_plants Documentation",
         author,
-        "ethanol_brazil_plants",
-        "Project ethanol_brazil_plants codebase.",
+        "biofuel_brazil_plants",
+        "Project biofuel_brazil_plants codebase.",
         "Data-Science",
     )
 ]
