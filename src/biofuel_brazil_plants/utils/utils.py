@@ -131,3 +131,17 @@ def normalize_date_columns(
 
         df = df.drop([f"xldt_{col}", f"f1_{col}", f"f2_{col}"], axis=1)
     return df
+
+
+def save_html(
+    html_content: str,
+    save_path: str
+) -> None:
+    """
+    Save html content to a file.
+    """
+
+    with open(save_path, "w") as f:
+        f.write(html_content)
+
+    return None

@@ -35,7 +35,3 @@ refined_renovabio_plants:
 refined_renovabio_plants_geocoded:
   type: pandas.ParquetDataSet
   filepath: data/03_primary/renovabio_biofuel_plants_geocoded.parquet
-
-refined_renovabio_plants_geocoded_excel:
-  type: pandas.ExcelDataSet
-  filepath: data/03_primary/renovabio_biofuel_plants_geocoded.xlsx

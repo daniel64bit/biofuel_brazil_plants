@@ -1,6 +1,6 @@
 # Brazilian biofuel plants
 
-![Python version](https://img.shields.io/badge/python-3.9%20%7C%20-blue.svg)
+![Python version](https://img.shields.io/badge/python-3.9%20-blue.svg)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/daniel64bit/biofuel_brazil_plants/blob/main/LICENSE.md)
 
 Para acessar a versão em português, [clique aqui](README-PTBR.md).
@@ -19,6 +19,7 @@ The data pipeline was built using [kedro 0.18.12](https://kedro.readthedocs.io/e
 2. Refinement of raw data, including data type standardization and arrangement.
 3. Geocoding of refined data using [Selenium](https://selenium-python.readthedocs.io/index.html) and [Bing Maps](https://www.bing.com/maps/).
     - Geocoding with [Google Maps](https://www.google.com/maps/) in progress.
+4. Map visualization of the geocoded data using [Folium](https://python-visualization.github.io/folium/).
 
 ## Requirements
 

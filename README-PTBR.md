@@ -1,6 +1,6 @@
 # Usinas de biocombustível brasileiras
 
-![Python version](https://img.shields.io/badge/python-3.9%20%7C%20-blue.svg)
+![Python version](https://img.shields.io/badge/python-3.9%20-blue.svg)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/daniel64bit/biofuel_brazil_plants/blob/main/LICENSE.md)
 
 ## Visão Geral
@@ -17,6 +17,7 @@ O pipeline de dados foi construído utilizando [kedro 0.18.12](https://kedro.rea
 2. Refinamento dos dados brutos, com padronização de tipos de dados e sua disposição;
 3. Geocodificação dos dados refinados utilizando [Selenium](https://selenium-python.readthedocs.io/index.html), [Bing Maps](https://www.bing.com/maps/)
     - Geocodificação com [Google Maps](https://www.google.com.br/maps/) em desenvolvimento.
+4. Visualização dos dados geocodificados em mapa, utilizando [Folium](https://python-visualization.github.io/folium/).
 
 ## Requisitos
 
