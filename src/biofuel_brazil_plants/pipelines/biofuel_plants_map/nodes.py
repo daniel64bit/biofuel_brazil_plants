@@ -7,12 +7,17 @@ import folium
 import pandas as pd
 
 
-def create_marker(lat: float, lon: float, content: str) -> folium.Marker:
+def create_marker(
+    lat: float,
+    lon: float,
+    content: str,
+    icon_path: str
+) -> folium.Marker:
     """
     Create a marker with a popup.
     """
     biofuelicon = folium.features.CustomIcon(
-        ".github/biomass-energy.png", icon_size=(45, 45)
+        icon_path, icon_size=(45, 45)
     )
     return folium.Marker(
         location=[lat, lon],
@@ -52,6 +57,7 @@ def generate_marker_content(
 def generate_biofuel_plants_map(
     rf_renovabio_plants_geocoded: pd.DataFrame,
     biofuel_plants_map_path: str,
+    icon_path: str
 ) -> folium.Map:
     """
     Generates a map with all the biofuel plants in Brazil.
@@ -76,7 +82,10 @@ def generate_biofuel_plants_map(
             row["LONGITUDE_google"],
         )
         marker = create_marker(
-            row["LATITUDE_google"], row["LONGITUDE_google"], marker_content
+            row["LATITUDE_google"],
+            row["LONGITUDE_google"],
+            marker_content,
+            icon_path
         )
 
         marker.add_to(biofuel_plants_map)

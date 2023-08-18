@@ -16,7 +16,8 @@ def biofuel_plants_map_pipe(**kwargs) -> Pipeline:
                     "rf_renovabio_plants_geocoded":
                     "refined_renovabio_plants_geocoded",
                     "biofuel_plants_map_path":
-                    "params:biofuel_plants_map_path"
+                    "params:biofuel_plants_map_path",
+                    "icon_path": "params:biomass_energy"
                 },
                 outputs=None,
                 name="generate_biofuel_plants_map",
