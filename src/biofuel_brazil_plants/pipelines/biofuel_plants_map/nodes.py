@@ -41,7 +41,8 @@ def generate_marker_content(
         <strong>Biofuel: </strong>{biofuel}<br>
         <strong>Volume: </strong>{volume}<br>
         <strong>Route: </strong>{route}<br>
-        <a href="https://www.google.com/maps/search/?api=1&query={lat,long}">Open with Google </a>
+        <a href="https://www.google.com/maps/search/?api=1&query={lat,long}">
+        Open with Google </a>
         """,
         script=True,
     )
@@ -70,11 +71,11 @@ def generate_biofuel_plants_map(
             row["BIOCOMBUSTIVEL"],
             row["DS_ROTA"],
             int(row["LITROS_CBIO"]),
-            row["LATITUDE_bing"],
-            row["LONGITUDE_bing"],
+            row["LATITUDE_google"],
+            row["LONGITUDE_google"],
         )
         marker = create_marker(
-            row["LATITUDE_bing"], row["LONGITUDE_bing"], marker_content
+            row["LATITUDE_google"], row["LONGITUDE_google"], marker_content
         )
 
         marker.add_to(biofuel_plants_map)
