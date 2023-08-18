@@ -37,7 +37,8 @@ def generate_marker_content(
     return folium.Html(
         f"""
         <h6><strong>{business_name}</strong></h6>
-        <strong>Adress: </strong>{address}, {address_no}, {city}, {state} - {zip_code}<br>
+        <strong>Adress: </strong>{address}, {address_no}, {city}, {state} - {zip_code}
+        <br>
         <strong>Biofuel: </strong>{biofuel}<br>
         <strong>Volume: </strong>{volume}<br>
         <strong>Route: </strong>{route}<br>
