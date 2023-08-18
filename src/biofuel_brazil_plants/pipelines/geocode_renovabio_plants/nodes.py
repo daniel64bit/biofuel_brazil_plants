@@ -37,6 +37,22 @@ def generate_address_lists(
     rf_renovabio_plants = rf_renovabio_plants.fillna("")
 
     address_list_v1 = (
+        rf_renovabio_plants["RAZAO_SOCIAL"]
+        .str.cat(
+            [
+                rf_renovabio_plants["CIDADE"],
+                rf_renovabio_plants["CEP"],
+                rf_renovabio_plants["UF"],
+            ],
+            sep=" ",
+        )
+        .str.replace("FAZENDA", "USINA")
+        .str.replace("/", " ")  # Removing reserved character
+        .str.replace("-", " ")  # Removing reserved character
+        .str.replace(r"\s+", "%20", regex=True)  # html5 space
+    ).tolist()
+
+    address_list_v2 = (
         rf_renovabio_plants["DS_END"]
         .str.cat(
             [
@@ -50,17 +66,7 @@ def generate_address_lists(
         .str.replace("FAZENDA", "USINA")
         .str.replace("/", " ")  # Removing reserved character
         .str.replace("-", " ")  # Removing reserved character
-        .str.replace(r"\s+", " ", regex=True)  # Removing extra spaces
-    ).tolist()
-
-    address_list_v2 = (
-        rf_renovabio_plants["CIDADE"]
-        .str.cat(
-            [rf_renovabio_plants["UF"], rf_renovabio_plants["CEP"]], sep=" "
-        )
-        .str.replace("/", " ")  # Removing reserved character
-        .str.replace("-", " ")  # Removing reserved character
-        .str.replace(r"\s+", " ", regex=True)  # Removing extra spaces
+        .str.replace(r"\s+", "%20", regex=True)  # html5 space
     ).tolist()
 
     return address_list_v1, address_list_v2
@@ -155,7 +161,6 @@ def geocode_renovabio_plants(
     geckodriver_path: str,
     log_path: str,
     first_iter_sleep_time: float,
-    bing_sleep_time: float,
     google_sleep_time: float,
 ) -> pd.DataFrame:
     """
@@ -166,16 +171,6 @@ def geocode_renovabio_plants(
     )
     address_list_v1, address_list_v2 = generate_address_lists(
         rf_renovabio_plants
-    )
-
-    df_latlong_bing = selenium_geocode(
-        mozilla_service,
-        mozilla_options,
-        address_list_v1,
-        address_list_v2,
-        first_iter_sleep_time,
-        bing_sleep_time,
-        gis="bing",
     )
 
     df_latlong_google = selenium_geocode(
@@ -189,8 +184,7 @@ def geocode_renovabio_plants(
     )
 
     rf_renovabio_plants_geocoded = pd.concat(
-        [rf_renovabio_plants, df_latlong_bing, df_latlong_google],
-        # [rf_renovabio_plants, df_latlong_bing],
+        [rf_renovabio_plants, df_latlong_google],
         axis=1,
         ignore_index=False,
     )
