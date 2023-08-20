@@ -123,3 +123,42 @@ class TestNormalizer:
         actual = utils.normalize_int_columns(dummy, ['INT_COLUMN'])
         message = "normalize_int_columns function is not working"
         assert actual.equals(expected), message
+
+    def test_normalize_float_columns(self):
+        """
+        Test normalize_float_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'FLOAT_COLUMN': [
+                    '55,2',
+                    '3E-2',
+                    '3-E-2',
+                    '3e-2',
+                    '0,0',
+                    55.2,
+                    0,
+                    0.03
+                ]
+            }
+        )
+
+        expected = pd.DataFrame(
+            {
+                'FLOAT_COLUMN': [
+                    55.2,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.0,
+                    55.2,
+                    0.0,
+                    0.03
+                ]
+            }
+        )
+
+        actual = utils.normalize_float_columns(dummy, ['FLOAT_COLUMN'])
+        message = "normalize_float_columns function is not working"
+        assert actual.equals(expected), message
