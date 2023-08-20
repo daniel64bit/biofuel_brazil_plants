@@ -69,7 +69,8 @@ def normalize_float_columns(
     df: pd.DataFrame, columns: list[str]
 ) -> pd.DataFrame:
     """
-    Normalize columns to int type
+    Normalize columns to int type.
+    Not working with negative numbers.
     """
     for col in columns:
         df[col] = (
