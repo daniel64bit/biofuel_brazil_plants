@@ -92,3 +92,34 @@ class TestNormalizer:
         actual = utils.normalize_object_columns(dummy, ['STRING_COLUMN'])
         message = "normalize_object_columns function is not working"
         assert actual.equals(expected), message
+
+    def test_normalize_int_columns(self):
+        """
+        Test normalize_int_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'INT_COLUMN': [
+                    '44.836.856/0001-77',
+                    '00.738.822/0002-55',
+                    '48610.206100/2020-48',
+                    '48610.200428/2020-51'
+                ],
+            }
+        )
+
+        expected = pd.DataFrame(
+            {
+                'INT_COLUMN': [
+                    44836856000177,
+                    738822000255,
+                    48610206100202048,
+                    48610200428202051
+                ],
+            }
+        )
+
+        actual = utils.normalize_int_columns(dummy, ['INT_COLUMN'])
+        message = "normalize_int_columns function is not working"
+        assert actual.equals(expected), message
