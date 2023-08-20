@@ -162,3 +162,34 @@ class TestNormalizer:
         actual = utils.normalize_float_columns(dummy, ['FLOAT_COLUMN'])
         message = "normalize_float_columns function is not working"
         assert actual.equals(expected), message
+
+    def test_normalize_date_columns(self):
+        """
+        Test normalize_date_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'DATE_COLUMN': [
+                    '2020-09-16 00:00:00',
+                    '2020-09-16',
+                    '16/09/2020',
+                    '16/09/2020*',
+                    44090,
+                ]
+            }
+        )
+
+        expected = {
+            'DATE_COLUMN': [
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+            ]
+        }
+
+        actual = utils.normalize_date_columns(dummy, ['DATE_COLUMN'])
+        message = "normalize_date_columns function is not working"
+        assert actual.to_dict('list') == expected, message

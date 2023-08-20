@@ -127,7 +127,7 @@ def normalize_date_columns(
         )
 
         df[col] = (
-            df[f"f1_{col}"].fillna(df[f"f2_{col}"]).fillna(df[f"xldt_{col}"])
+            df[f"xldt_{col}"].fillna(df[f"f2_{col}"]).fillna(df[f"f1_{col}"])
         )
 
         df = df.drop([f"xldt_{col}", f"f1_{col}", f"f2_{col}"], axis=1)
