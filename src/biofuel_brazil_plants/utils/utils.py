@@ -78,7 +78,7 @@ def normalize_float_columns(
             .astype(str)
             .str.encode("ascii", "ignore")
             .str.decode("ascii")
-            .str.replace("[/-]", "", regex=True)
+            .str.replace("-E|E", "e", regex=True)
             .str.replace("[,]", ".", regex=True)
             .astype(np.float64)
         )
