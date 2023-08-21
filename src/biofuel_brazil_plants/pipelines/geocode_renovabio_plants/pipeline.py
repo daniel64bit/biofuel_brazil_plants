@@ -20,7 +20,7 @@ def geocode_renovabio_plants_pipe(**kwargs) -> Pipeline:
                     "first_iter_sleep_time": "params:first_iter_sleep_time",
                     "google_sleep_time": "params:google_sleep_time",
                 },
-                outputs="refined_renovabio_plants_geocoded",
+                outputs="refined_dm_plant_address",
                 name="geocode_renovabio_plants",
             ),
         ]

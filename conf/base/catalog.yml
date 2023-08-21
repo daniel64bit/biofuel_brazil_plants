@@ -32,6 +32,6 @@ refined_renovabio_plants:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/renovabio_biofuel_plants.parquet
 
-refined_renovabio_plants_geocoded:
+refined_dm_plant_address:
   type: pandas.ParquetDataSet
-  filepath: data/03_primary/renovabio_biofuel_plants_geocoded.parquet
+  filepath: data/02_intermediate/refined_dm_plant_address.parquet
