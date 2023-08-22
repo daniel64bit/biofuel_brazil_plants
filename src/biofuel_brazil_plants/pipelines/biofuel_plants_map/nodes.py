@@ -83,7 +83,7 @@ def create_biofuel_plants_map(
         location=[-14.2350, -51.9253], zoom_start=4, tiles="OpenStreetMap"
     )
 
-    for index, row in rf_renovabio_plants_geocoded.iterrows():  # noqa
+    for index, row in rf_renovabio_plants_geocoded.iterrows():
         marker_content = generate_marker_content(
             row["RAZAO_SOCIAL"],
             row["DS_END"],
@@ -109,6 +109,21 @@ def create_biofuel_plants_map(
     return biofuel_plants_map
 
 
+def add_satellite_tile_layer(map: folium.Map) -> folium.Map:
+    """
+    Add a satellite tile layer to the map.
+    """
+    tile = folium.TileLayer(
+        tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',  # noqa
+        attr='Esri',
+        name='Esri Satellite',
+        overlay=False,
+        control=True
+    )
+    tile.add_to(map)
+    return map
+
+
 def generate_biofuel_plants_map(
     rf_renovabio_plants: pd.DataFrame,
     rf_dm_plant_address: pd.DataFrame,
@@ -126,6 +141,8 @@ def generate_biofuel_plants_map(
     biofuel_plants_map = create_biofuel_plants_map(
         rf_renovabio_plants_geocoded, icon_path
     )
+
+    biofuel_plants_map = add_satellite_tile_layer(biofuel_plants_map)
 
     biofuel_plants_map.save(biofuel_plants_map_path)
 
