@@ -17,7 +17,7 @@ def create_marker(
     Create a marker with a popup.
     """
     biofuelicon = folium.features.CustomIcon(
-        icon_path, icon_size=(45, 45)
+        icon_path, icon_size=(35, 35)
     )
     return folium.Marker(
         location=[lat, lon],
@@ -83,28 +83,42 @@ def create_biofuel_plants_map(
         location=[-14.2350, -51.9253], zoom_start=4, tiles="OpenStreetMap"
     )
 
-    for index, row in rf_renovabio_plants_geocoded.iterrows():
-        marker_content = generate_marker_content(
-            row["RAZAO_SOCIAL"],
-            row["DS_END"],
-            row["NO_END"],
-            row["CIDADE"],
-            row["UF"],
-            row["CEP"],
-            row["BIOCOMBUSTIVEL"],
-            row["DS_ROTA"],
-            int(row["LITROS_CBIO"]),
-            row["LATITUDE_google"],
-            row["LONGITUDE_google"],
-        )
-        marker = create_marker(
-            row["LATITUDE_google"],
-            row["LONGITUDE_google"],
-            marker_content,
-            icon_path
-        )
+    # Markers with different categories
+    markers = {}
+    biofuel_list = rf_renovabio_plants_geocoded['BIOCOMBUSTIVEL'].unique()
+    for biofuel in biofuel_list:
+        markers[biofuel] = folium.FeatureGroup(name=biofuel)
 
-        marker.add_to(biofuel_plants_map)
+    for biofuel in biofuel_list:
+        temp_df = rf_renovabio_plants_geocoded[
+            rf_renovabio_plants_geocoded['BIOCOMBUSTIVEL'] == biofuel
+        ].copy()
+
+        for index, row in temp_df.iterrows():
+            marker_content = generate_marker_content(
+                row["RAZAO_SOCIAL"],
+                row["DS_END"],
+                row["NO_END"],
+                row["CIDADE"],
+                row["UF"],
+                row["CEP"],
+                row["BIOCOMBUSTIVEL"],
+                row["DS_ROTA"],
+                int(row["LITROS_CBIO"]),
+                row["LATITUDE_google"],
+                row["LONGITUDE_google"],
+            )
+            marker = create_marker(
+                row["LATITUDE_google"],
+                row["LONGITUDE_google"],
+                marker_content,
+                icon_path.format(biofuel)
+            )
+
+            markers[biofuel].add_child(marker)
+
+    for marker_biofuel in markers.values():
+        biofuel_plants_map.add_child(marker_biofuel)
 
     return biofuel_plants_map
 
@@ -144,6 +158,7 @@ def generate_biofuel_plants_map(
 
     biofuel_plants_map = add_satellite_tile_layer(biofuel_plants_map)
 
+    folium.LayerControl().add_to(biofuel_plants_map)
     biofuel_plants_map.save(biofuel_plants_map_path)
 
     return None
