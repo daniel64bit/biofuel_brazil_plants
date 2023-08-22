@@ -22,6 +22,7 @@ def selenium_setup(
 
     mozilla_service = Service(geckodriver_path, log_output=log_path)
     mozilla_options = Options()
+    mozilla_options.headless = True
     mozilla_options.set_preference("general.useragent.override", user_agent)
     return mozilla_service, mozilla_options
 

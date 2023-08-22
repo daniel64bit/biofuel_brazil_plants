@@ -54,13 +54,29 @@ def generate_marker_content(
     )
 
 
-def generate_biofuel_plants_map(
+def merge_plants_with_adress(
+    rf_renovabio_plants: pd.DataFrame,
+    rf_dm_plant_address: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    Merges the plants dataframe with addresses dimension
+    """
+
+    rf_dm_plant_address = rf_dm_plant_address[
+        ['CNPJ', 'LATITUDE_google', 'LONGITUDE_google']
+    ].copy()
+    rf_renovabio_plants_geocoded = rf_renovabio_plants.merge(
+        rf_dm_plant_address, on='CNPJ', how='left')
+
+    return rf_renovabio_plants_geocoded
+
+
+def create_biofuel_plants_map(
     rf_renovabio_plants_geocoded: pd.DataFrame,
-    biofuel_plants_map_path: str,
     icon_path: str
 ) -> folium.Map:
     """
-    Generates a map with all the biofuel plants in Brazil.
+    Creates a map with all the biofuel plants in Brazil.
     """
 
     biofuel_plants_map = folium.Map(
@@ -89,6 +105,27 @@ def generate_biofuel_plants_map(
         )
 
         marker.add_to(biofuel_plants_map)
+
+    return biofuel_plants_map
+
+
+def generate_biofuel_plants_map(
+    rf_renovabio_plants: pd.DataFrame,
+    rf_dm_plant_address: pd.DataFrame,
+    icon_path: str,
+    biofuel_plants_map_path: str
+) -> None:
+    """
+    Generate a map with all the biofuel plants in Brazil.
+    """
+
+    rf_renovabio_plants_geocoded = merge_plants_with_adress(
+        rf_renovabio_plants, rf_dm_plant_address
+    )
+
+    biofuel_plants_map = create_biofuel_plants_map(
+        rf_renovabio_plants_geocoded, icon_path
+    )
 
     biofuel_plants_map.save(biofuel_plants_map_path)
 

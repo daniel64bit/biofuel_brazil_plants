@@ -13,11 +13,10 @@ def biofuel_plants_map_pipe(**kwargs) -> Pipeline:
             node(
                 func=generate_biofuel_plants_map,
                 inputs={
-                    "rf_renovabio_plants_geocoded":
-                    "refined_renovabio_plants_geocoded",
-                    "biofuel_plants_map_path":
-                    "params:biofuel_plants_map_path",
-                    "icon_path": "params:biomass_energy"
+                    "rf_renovabio_plants": "refined_renovabio_plants",
+                    "rf_dm_plant_address": "refined_dm_plant_address",
+                    "icon_path": "params:biomass_energy",
+                    "biofuel_plants_map_path": "params:biofuel_plants_map_path",
                 },
                 outputs=None,
                 name="generate_biofuel_plants_map",
