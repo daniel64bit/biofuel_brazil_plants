@@ -13,7 +13,7 @@ addopts = """
 
 # Use "black --preview <nome do arquivo>" to run black in preview mode
 [tool.black]
-line-length = 79
+line-length = 88
 target-version = ["py37"]
 include = '\.pyi?$'
 experimental-string-processing = true

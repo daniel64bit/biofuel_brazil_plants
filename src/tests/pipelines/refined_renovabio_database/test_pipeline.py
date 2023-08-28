@@ -57,3 +57,139 @@ class TestNormalizer:
 
         actual = utils.normalize_header(dummy)
         assert actual.equals(expected), "normalize_header function is not working"
+
+    def test_normalize_object_columns(self):
+        """
+        Test normalize_object_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'STRING_COLUMN': [
+                    'IMPACTO BIOENERGIA ALAGOAS S.A.\u200b - Teotônio Vilela - AL',
+                    'Santa Cruz Açúcar e Álcool Ltda. - Santa Cruz Cabrália - BA',
+                    'Etanol combustível de primeira geração – cana-de-açúcar',
+                    'BENRI CLASSIFICAÇÃO DA PRODUÇÃO DE AÇÚCAR\u200b E ETANOL LTDA.',
+                    '44.836.856/0001-77',
+                    '48610.219471/2019-56',
+                ]
+            }
+        )
+
+        expected = pd.DataFrame(
+            {
+                'STRING_COLUMN': [
+                    'IMPACTO BIOENERGIA ALAGOAS S.A. - TEOTONIO VILELA - AL',
+                    'SANTA CRUZ ACUCAR E ALCOOL LTDA. - SANTA CRUZ CABRALIA - BA',
+                    'ETANOL COMBUSTIVEL DE PRIMEIRA GERACAO CANA-DE-ACUCAR',
+                    'BENRI CLASSIFICACAO DA PRODUCAO DE ACUCAR E ETANOL LTDA.',
+                    '44.836.856/0001-77',
+                    '48610.219471/2019-56'
+                ]
+            }
+        )
+
+        actual = utils.normalize_object_columns(dummy, ['STRING_COLUMN'])
+        message = "normalize_object_columns function is not working"
+        assert actual.equals(expected), message
+
+    def test_normalize_int_columns(self):
+        """
+        Test normalize_int_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'INT_COLUMN': [
+                    '44.836.856/0001-77',
+                    '00.738.822/0002-55',
+                    '48610.206100/2020-48',
+                    '48610.200428/2020-51'
+                ],
+            }
+        )
+
+        expected = pd.DataFrame(
+            {
+                'INT_COLUMN': [
+                    44836856000177,
+                    738822000255,
+                    48610206100202048,
+                    48610200428202051
+                ],
+            }
+        )
+
+        actual = utils.normalize_int_columns(dummy, ['INT_COLUMN'])
+        message = "normalize_int_columns function is not working"
+        assert actual.equals(expected), message
+
+    def test_normalize_float_columns(self):
+        """
+        Test normalize_float_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'FLOAT_COLUMN': [
+                    '55,2',
+                    '3E-2',
+                    '3-E-2',
+                    '3e-2',
+                    '0,0',
+                    55.2,
+                    0,
+                    0.03
+                ]
+            }
+        )
+
+        expected = pd.DataFrame(
+            {
+                'FLOAT_COLUMN': [
+                    55.2,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.0,
+                    55.2,
+                    0.0,
+                    0.03
+                ]
+            }
+        )
+
+        actual = utils.normalize_float_columns(dummy, ['FLOAT_COLUMN'])
+        message = "normalize_float_columns function is not working"
+        assert actual.equals(expected), message
+
+    def test_normalize_date_columns(self):
+        """
+        Test normalize_date_columns function
+        """
+
+        dummy = pd.DataFrame(
+            {
+                'DATE_COLUMN': [
+                    '2020-09-16 00:00:00',
+                    '2020-09-16',
+                    '16/09/2020',
+                    '16/09/2020*',
+                    44090,
+                ]
+            }
+        )
+
+        expected = {
+            'DATE_COLUMN': [
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+                pd.Timestamp('2020-09-16'),
+            ]
+        }
+
+        actual = utils.normalize_date_columns(dummy, ['DATE_COLUMN'])
+        message = "normalize_date_columns function is not working"
+        assert actual.to_dict('list') == expected, message

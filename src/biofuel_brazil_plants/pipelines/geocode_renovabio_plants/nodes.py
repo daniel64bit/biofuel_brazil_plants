@@ -9,7 +9,6 @@ import pandas as pd
 import selenium.webdriver as webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
-from random import random
 
 
 def selenium_setup(
@@ -23,26 +22,41 @@ def selenium_setup(
 
     mozilla_service = Service(geckodriver_path, log_output=log_path)
     mozilla_options = Options()
+    mozilla_options.headless = True
     mozilla_options.set_preference("general.useragent.override", user_agent)
     return mozilla_service, mozilla_options
 
 
-def generate_address_lists(
+def generate_plants_adress_dimension(
     rf_renovabio_plants: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Generate a dimension table with all plants addresses
+    """
+
+    dm_plant_address = rf_renovabio_plants[
+        ["CNPJ", "RAZAO_SOCIAL", "DS_END", "NO_END", "CEP", "CIDADE", "UF"]
+    ].drop_duplicates().reset_index(drop=True)
+
+    return dm_plant_address
+
+
+def generate_address_lists(
+    dm_plant_address: pd.DataFrame,
 ) -> tuple:
     """
     Generate a list of addresses to be geocoded.
     """
 
-    rf_renovabio_plants = rf_renovabio_plants.fillna("")
+    dm_plant_address = dm_plant_address.fillna("")
 
     address_list_v1 = (
-        rf_renovabio_plants["RAZAO_SOCIAL"]
+        dm_plant_address["RAZAO_SOCIAL"]
         .str.cat(
             [
-                rf_renovabio_plants["CIDADE"],
-                rf_renovabio_plants["CEP"],
-                rf_renovabio_plants["UF"],
+                dm_plant_address["CIDADE"],
+                dm_plant_address["CEP"],
+                dm_plant_address["UF"],
             ],
             sep=" ",
         )
@@ -53,13 +67,13 @@ def generate_address_lists(
     ).tolist()
 
     address_list_v2 = (
-        rf_renovabio_plants["DS_END"]
+        dm_plant_address["DS_END"]
         .str.cat(
             [
-                rf_renovabio_plants["NO_END"],
-                rf_renovabio_plants["CIDADE"],
-                rf_renovabio_plants["UF"],
-                rf_renovabio_plants["CEP"],
+                dm_plant_address["NO_END"],
+                dm_plant_address["CIDADE"],
+                dm_plant_address["UF"],
+                dm_plant_address["CEP"],
             ],
             sep=" ",
         )
@@ -132,7 +146,7 @@ def selenium_geocode(
             time.sleep(first_iter_sleep_time)
             first_iter = False
         else:
-            time.sleep(sleep_time + random())
+            time.sleep(sleep_time)
 
         lat, long = get_latlong_from_url(browser.current_url)
 
@@ -169,9 +183,9 @@ def geocode_renovabio_plants(
     mozilla_service, mozilla_options = selenium_setup(
         user_agent, geckodriver_path, log_path
     )
-    address_list_v1, address_list_v2 = generate_address_lists(
-        rf_renovabio_plants
-    )
+
+    dm_plant_address = generate_plants_adress_dimension(rf_renovabio_plants)
+    address_list_v1, address_list_v2 = generate_address_lists(dm_plant_address)
 
     df_latlong_google = selenium_geocode(
         mozilla_service,
@@ -183,10 +197,10 @@ def geocode_renovabio_plants(
         gis="google",
     )
 
-    rf_renovabio_plants_geocoded = pd.concat(
-        [rf_renovabio_plants, df_latlong_google],
+    rf_dm_plant_address = pd.concat(
+        [dm_plant_address, df_latlong_google],
         axis=1,
         ignore_index=False,
     )
 
-    return rf_renovabio_plants_geocoded
+    return rf_dm_plant_address

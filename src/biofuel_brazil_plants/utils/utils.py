@@ -69,7 +69,8 @@ def normalize_float_columns(
     df: pd.DataFrame, columns: list[str]
 ) -> pd.DataFrame:
     """
-    Normalize columns to int type
+    Normalize columns to int type.
+    Not working with negative numbers.
     """
     for col in columns:
         df[col] = (
@@ -77,7 +78,7 @@ def normalize_float_columns(
             .astype(str)
             .str.encode("ascii", "ignore")
             .str.decode("ascii")
-            .str.replace("[/-]", "", regex=True)
+            .str.replace("-E|E", "e", regex=True)
             .str.replace("[,]", ".", regex=True)
             .astype(np.float64)
         )
@@ -126,7 +127,7 @@ def normalize_date_columns(
         )
 
         df[col] = (
-            df[f"f1_{col}"].fillna(df[f"f2_{col}"]).fillna(df[f"xldt_{col}"])
+            df[f"xldt_{col}"].fillna(df[f"f2_{col}"]).fillna(df[f"f1_{col}"])
         )
 
         df = df.drop([f"xldt_{col}", f"f1_{col}", f"f2_{col}"], axis=1)
