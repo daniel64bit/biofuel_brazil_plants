@@ -19,6 +19,10 @@ O pipeline de dados foi construído utilizando [kedro 0.18.12](https://kedro.rea
     - Geocodificação com [Google Maps](https://www.google.com.br/maps/) em desenvolvimento.
 4. Visualização dos dados geocodificados em mapa, utilizando [Folium](https://python-visualization.github.io/folium/).
 
+## Pipeline de dados
+
+![pipeline](docs/image/biofuel_plants_pipeline.png)
+
 ## Requisitos
 
 As bibliotecas necessárias para a execução do projeto estão listadas no arquivo `src/requirements.txt`. Para instalá-las, utilize o comando:

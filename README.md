@@ -21,6 +21,10 @@ The data pipeline was built using [kedro 0.18.12](https://kedro.readthedocs.io/e
     - Geocoding with [Google Maps](https://www.google.com/maps/) in progress.
 4. Map visualization of the geocoded data using [Folium](https://python-visualization.github.io/folium/).
 
+## Data Pipeline
+
+![pipeline](docs/image/biofuel_plants_pipeline.png)
+
 ## Requirements
 
 The required libraries for project execution are listed in the `src/requirements.txt` file. To install them, use the following command:
