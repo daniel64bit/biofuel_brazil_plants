@@ -5,4 +5,3 @@
 # Link: https://docs.kedro.org/en/0.18.12/kedro_project_setup/configuration.html#parameters
 
 renovabio_url: 'https://www.gov.br/anp/pt-br/assuntos/renovabio/certificados-producao-importacao-eficiente-biocombustiveis'
-raw_renovabio_plants_path: 'data/01_raw/renovabio_biofuel_plants.xlsx'

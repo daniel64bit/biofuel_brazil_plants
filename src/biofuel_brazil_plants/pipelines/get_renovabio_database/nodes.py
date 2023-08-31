@@ -2,20 +2,20 @@
 Pipeline 'get_renovabio_database'
 generated using Kedro 0.18.12
 """
+
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 
-def download_file(url: str, save_path: str) -> None:
+def download_file(url: str) -> None:
     """
-    Download file file from url and save it to save_path.
+    Downloads a file from a given url.
     """
 
     try:
         response = requests.get(url)
-
-        with open(save_path, "wb") as file:
-            file.write(response.content)
+        return response.content
 
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
@@ -39,11 +39,21 @@ def extract_renovabio_database_link(renovabio_url: str) -> str:
         return None
 
 
-def download_renovabio_database(renovabio_url, save_path) -> None:
+def download_renovabio_database(renovabio_url) -> None:
     """
     Download and save Renovabio plants database.
     """
 
     database_url = extract_renovabio_database_link(renovabio_url)
-    download_file(database_url, save_path)
-    return None
+    binary_file = download_file(database_url)
+
+    raw_validos = pd.read_excel(
+        binary_file, sheet_name="Válidos", skiprows=1, skipfooter=10
+    )
+    raw_canc_susp = pd.read_excel(
+        binary_file, sheet_name="Cancelados ou Suspensos", skiprows=1, skipfooter=4
+    )
+    raw_anulados = pd.read_excel(
+        binary_file, sheet_name="Anulados", skiprows=1, skipfooter=9)
+
+    return raw_validos, raw_canc_susp, raw_anulados
