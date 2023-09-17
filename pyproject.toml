@@ -8,7 +8,7 @@ profile = "black"
 
 [tool.pytest.ini_options]
 addopts = """
---cov-report term-missing \
+--cov-report xml \
 --cov src/biofuel_brazil_plants -ra"""
 
 # Use "black --preview <nome do arquivo>" to run black in preview mode
