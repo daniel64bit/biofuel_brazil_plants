@@ -16,9 +16,8 @@ def biofuel_plants_map_pipe(**kwargs) -> Pipeline:
                     "rf_renovabio_plants": "refined_renovabio_plants",
                     "rf_dm_plant_address": "refined_dm_plant_address",
                     "icon_path": "params:biomass_energy",
-                    "biofuel_plants_map_path": "params:biofuel_plants_map_path",
                 },
-                outputs=None,
+                outputs='biofuel_plants_map',
                 name="generate_biofuel_plants_map",
             ),
         ]

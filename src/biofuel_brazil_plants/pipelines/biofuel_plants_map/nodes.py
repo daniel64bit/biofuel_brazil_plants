@@ -142,7 +142,6 @@ def generate_biofuel_plants_map(
     rf_renovabio_plants: pd.DataFrame,
     rf_dm_plant_address: pd.DataFrame,
     icon_path: str,
-    biofuel_plants_map_path: str
 ) -> None:
     """
     Generate a map with all the biofuel plants in Brazil.
@@ -159,6 +158,5 @@ def generate_biofuel_plants_map(
     biofuel_plants_map = add_satellite_tile_layer(biofuel_plants_map)
 
     folium.LayerControl().add_to(biofuel_plants_map)
-    biofuel_plants_map.save(biofuel_plants_map_path)
 
-    return None
+    return biofuel_plants_map
