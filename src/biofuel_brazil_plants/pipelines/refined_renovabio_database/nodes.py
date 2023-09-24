@@ -65,6 +65,10 @@ def split_razao_cidade_uf_column(normalized_df: pd.DataFrame) -> pd.DataFrame:
     normalized_df = normalized_df.drop(
         ["RAZAO_SOCIAL-CIDADE-UF", "UF_2"], axis=1
     )
+
+    for col in ["CIDADE", "UF"]:
+        normalized_df[col] = normalized_df[col].str.strip()
+
     return normalized_df
 
 
@@ -145,7 +149,8 @@ def extract_city_and_state(
     for col in ["CIDADE", "UF"]:
         normalized_df[col] = normalized_df[col].fillna(
             normalized_df[f"re_{col}"]
-        )
+        ).str.strip()
+
         normalized_df = normalized_df.drop(f"re_{col}", axis=1)
 
     return normalized_df
