@@ -3,12 +3,15 @@ Pipeline 'geocode_renovabio_plants'
 generated using Kedro 0.18.12
 """
 
+import logging
 import re
 import time
 import pandas as pd
 import selenium.webdriver as webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
+
+log = logging.getLogger(__name__)
 
 
 def selenium_setup(
@@ -93,6 +96,8 @@ def get_latlong_from_url(url: str) -> tuple:
     latlong = re.findall(r"-?\d{1,2}\.\d{3,}", url)
     latitude = float(latlong[0])
     longitude = float(latlong[1])
+
+    log.info(f"Geocoded address: {latitude}, {longitude}")
     return latitude, longitude
 
 
@@ -148,14 +153,16 @@ def selenium_geocode(
         else:
             time.sleep(sleep_time)
 
-        lat, long = get_latlong_from_url(browser.current_url)
-
         # If address is not found, try to geocode only the last 3 address columns
         ckeck_results = re.findall(not_found_text, browser.page_source)
         if len(ckeck_results) > 0:
             browser.get(gis_url.format(address_list_v2[i]))
             time.sleep(sleep_time)
 
+            log.info(f"Geocoding address: {address_list_v2[i]}")
+            lat, long = get_latlong_from_url(browser.current_url)
+        else:
+            log.info(f"Geocoding address: {address_list_v1[i]}")
             lat, long = get_latlong_from_url(browser.current_url)
 
         latitude.append(lat)
